@@ -2,35 +2,69 @@
 from collections import Counter
 
 class Scoring:
-    def __init__(self, score_card, all_categories):
-        self.score_card = score_card #A dictionary to store the scores for each category.
-        self.all_categories = all_categories #A set containing all possible scoring categories.
+    def __init__(self):
+        self.score_card = {} #A dictionary to store the scores for each category.
+        self.all_categories = {
+            'Ones', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes',
+            'ThreeOfAKind', 'FourOfAKind', 'FullHouse', 'SmallStraight', 'LargeStraight', 'Yahtzee', 'Chance'
+        } #A set containing all possible scoring categories.
 
-    def calculate_score(self): #Given a category and dice values, calculates the score for that category.
-        return 
+    def calculate_score(self, category, dice_values): #Given a category and dice values, calculates the score for that category.
+        count_values = Counter(dice_values)
+        sorted_values = sorted(dice_values)
 
-    def mark_score(self): #Records a score for a given category in score_card.
-        pass
+        if category in {'Ones', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes'}:
+            return count_values[int(category[-1])] * int(category[-1])
+        elif category in {'ThreeOfAKind', 'FourOfAKind'}:
+            target_count = 3 if category == 'ThreeOfAKind' else 4
+            for value, count in count_values.items():
+                if count >= target_count:
+                    return target_count * value
+            return 0
+        elif category == 'FullHouse':
+            if (len(count_values) == 2 and list(count_values.values()) in [[2, 3], [3, 2]]) or (len(count_values) == 1 and list(count_values.values())[0] == 5):
+                return sum(sorted_values)
+            return 0
+        elif category == 'SmallStraight':
+            if any(sorted_values[i + 1] - sorted_values[i] != 1 for i in range(len(sorted_values) - 1)) or len(set(sorted_values)) < 4:
+                return 0
+            return 25
+        elif category == 'LargeStraight':
+            if any(sorted_values[i + 1] - sorted_values[i] != 1 for i in range(len(sorted_values) - 1)) or len(set(sorted_values)) < 5:
+                return 0
+            return 30
+        elif category == 'Yahtzee':
+            if count_values.most_common(1)[0][1] == 5:
+                return 50
+            return 0
+        elif category == 'Chance':
+            return sum(dice_values)
+        else:
+            return 0
+
+    def mark_score(self, category, score): #Records a score for a given category in score_card.
+        self.score_card[category] = score
 
     def get_score_card(self): # Returns the current score_card.
         return self.score_card
 
-    def is_category_used(self): #Checks if a category has already been used.
-        pass
+    def is_category_used(self, category): #Checks if a category has already been used.
+        return category in self.score_card
 
-    def remaining_categories(self): #Returns a list of remaining categories.
-        pass
+    def remaining_categories(self):
+        return list(self.all_categories - set(self.score_card.keys()))
 
-    def num_remaining_categories(self): #Returns a list of remaining categories.
-        pass
+    def num_remaining_categories(self):
+        return len(self.remaining_categories())
 
-    def num_used_categories(self): #Returns the number of remaining categories.
-        pass
+    def num_used_categories(self):
+        return len(self.score_card)
 
-    def is_full(self): #Returns the number of used categories.
-        pass
+    def is_full(self):
+        return self.num_used_categories() == len(self.all_categories)
 
-    def display_score_card(self): #Displays the scorecard in a user-friendly format in the terminal.
-        pass
-
+    def display_score_card(self):
+        print("Score Card:")
+        for category, score in self.score_card.items():
+            print(f"{category}: {score}")
 
