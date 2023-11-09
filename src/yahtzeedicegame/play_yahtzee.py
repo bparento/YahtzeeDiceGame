@@ -13,12 +13,10 @@ class PlayYahtzee:
     
     def choose_category(self):
         category = input("Choose a scoring category: ")
-        while category not in self.player.available_categories():
+        while category not in self.player.remaining_categories():
             print("Invalid category. Choose a valid category.")
             category = input("Choose a scoring category: ")
         
-        self.player.score_category(category)
-
     def start_new_turn(self):
         self.player.player_turn = self.player.PlayerTurn()
 
@@ -27,7 +25,7 @@ class PlayYahtzee:
         self.choose_category()
 
     def play_game(self):
-        while not self.player.is_score_card_full():
+        while not self.player.is_full():
             self.turn()
 
         self.game_over()

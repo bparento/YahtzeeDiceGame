@@ -5,9 +5,11 @@ from display_dice import display_dice
 
 class Player(Scoring):
     def __init__(self):
+        Scoring.__init__(self)
+        self.player_turn = self.PlayerTurn()
         self.name = input("Please Enter your name: ")
         self.score = 0
-        self.player_turn = self.PlayerTurn()
+
 
     class PlayerTurn:
         def __init__(self):
@@ -30,9 +32,3 @@ class Player(Scoring):
             'rolls_left': self.rolls_left,
             'held_dice': self.held_dice
         }
-
-# test=Player()
-# print(test.name)
-# print(test.score)
-# temp_dice=YahzeeDice()
-# player_turn = Player.PlayerTurn()
