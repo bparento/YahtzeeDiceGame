@@ -10,7 +10,6 @@ class Player(Scoring):
         self.name = input("Please Enter your name: ")
         self.score = 0
 
-
     class PlayerTurn:
         def __init__(self):
             self.yahtzee_dice = YahzeeDice()
@@ -32,3 +31,4 @@ class Player(Scoring):
             'rolls_left': self.rolls_left,
             'held_dice': self.held_dice
         }
+    

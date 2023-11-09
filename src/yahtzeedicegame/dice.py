@@ -21,6 +21,3 @@ class YahzeeDice(Dice):
     def get_values(self):
         return [dice.current_value for dice in self.dice_set]
 
-test = YahzeeDice()
-test.roll_all()  # Roll the dice before getting values
-print(test.get_values())

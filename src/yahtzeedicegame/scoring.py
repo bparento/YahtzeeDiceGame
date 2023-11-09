@@ -67,4 +67,3 @@ class Scoring:
         print("Score Card:")
         for category, score in self.score_card.items():
             print(f"{category}: {score}")
-

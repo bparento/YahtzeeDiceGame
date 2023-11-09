@@ -1,8 +1,4 @@
-#Requirements
-    #Include, typing library for type annotation
-
-from typing import List, Dict
-
+from typing import List
 
 def display_dice(values: List[int], held_indicies: List[int]=[]):
     # ANSI escape code for green text
