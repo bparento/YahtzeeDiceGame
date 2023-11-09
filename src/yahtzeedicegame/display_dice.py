@@ -61,8 +61,3 @@ def display_dice(values: List[int], held_indicies: List[int]=[]):
             die = [f"\033[92m{line}\033[0m" for line in die]
         for line in die:
             print(line)
-
-# #Validation of working Display
-# dice_values = [3, 3, 6, 2, 5]
-# held_dice_indices = [0, 2]
-# display_dice(dice_values, held_dice_indices)

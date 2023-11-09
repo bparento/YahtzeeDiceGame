@@ -2,35 +2,51 @@ from player import Player
 from display_dice import display_dice
 
 class PlayYahtzee:
-    def __init__(self, player):
-        self.player = player
+    def __init__(self):
+        self.player = Player()
     
     def roll(self):
         self.start_new_turn()
         self.player.display_score_card()
-        self.player.roll_dice()
-        display_dice(self.player.dice)
+        self.player.player_turn.roll()
+        display_dice(self.player.player_turn.yahtzee_dice.get_values())
     
     def choose_category(self):
         category = input("Choose a scoring category: ")
         while category not in self.player.available_categories():
             print("Invalid category. Choose a valid category.")
             category = input("Choose a scoring category: ")
+        
+        self.player.score_category(category)
 
     def start_new_turn(self):
-        return self.player.PlayerTurn()
+        self.player.player_turn = self.player.PlayerTurn()
 
     def turn(self):
-        pass
+        self.roll()
+        self.choose_category()
 
     def play_game(self):
-        pass
+        while not self.player.is_score_card_full():
+            self.turn()
+
+        self.game_over()
 
     def generate_block_art(self):
-        pass
+        # ASCII art for game-over screen
+        art = """
+        Congratulations!
+        ________  
+        \       \ 
+         \       \
+          \_______\\
+        """
+        print(art)
 
     def game_over(self):
-        pass
+        self.player.display_final_score()
+        self.generate_block_art()
+        exit()
 
 
 if __name__ == '__main__':
