@@ -6,13 +6,19 @@ class PlayYahtzee:
         self.player = player
     
     def roll(self):
-        pass
+        self.start_new_turn()
+        self.player.display_score_card()
+        self.player.roll_dice()
+        display_dice(self.player.dice)
     
     def choose_category(self):
-        pass
+        category = input("Choose a scoring category: ")
+        while category not in self.player.available_categories():
+            print("Invalid category. Choose a valid category.")
+            category = input("Choose a scoring category: ")
 
     def start_new_turn(self):
-        pass
+        return self.player.PlayerTurn()
 
     def turn(self):
         pass

@@ -9,8 +9,9 @@ class Player(Scoring):
         self.score = score
 
     class PlayerTurn:
-        def __init__(self,rolls_left = 3):
+        def __init__(self,rolls_left = 3 ):
             self.yahtzee_dice = YahtzeeDice()
+            #self.yahtzee_dice=yahtzee_dice
             self.rolls_left = rolls_left
             self.held_dice = []
 
@@ -30,3 +31,5 @@ class Player(Scoring):
 # test=Player()
 # print(test.name)
 # print(test.score)
+temp_dice=YahtzeeDice()
+player_turn = Player.PlayerTurn(temp_dice)
