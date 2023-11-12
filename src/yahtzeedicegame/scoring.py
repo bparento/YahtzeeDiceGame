@@ -79,12 +79,3 @@ class Scoring:
         print("Score Card:")
         for category, score in self.score_card.items():
             print(f"{category}: {score}")
-
-
-
-# yahtzee = Scoring()
-# category = 'Threes'
-# dice = [3, 3, 4, 5, 6]
-# score = yahtzee.calculate_score(category, dice)
-# yahtzee.mark_score(category, score)
-# yahtzee.display_score_card()

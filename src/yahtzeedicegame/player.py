@@ -1,7 +1,6 @@
 from typing import List, Dict
 from scoring import Scoring
 from dice import YahzeeDice
-from display_dice import display_dice
 
 class Player(Scoring):
     def __init__(self):
@@ -32,4 +31,3 @@ class Player(Scoring):
                 'rolls_left': self.rolls_left,
                 'held_dice': self.held_dice
             }
-
