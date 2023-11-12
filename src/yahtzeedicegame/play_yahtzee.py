@@ -35,11 +35,13 @@ class PlayYahtzee:
                 if action == 'r':
                     self.roll()
                     state = self.current_turn.get_state()
-                    display_dice(state['dice_values'], state['held_dice'])
+                    display_dice(state['dice_values'])
                 else:
                     print(f"Invalid action {self.player.name}. Please enter 'r' to roll.")
             
             if self.current_turn.rolls_left == 0:
+                print("Below is your working hand: ")
+                display_dice(state['dice_values'],held_indicies=[0,1,2,3,4])
                 state = self.current_turn.get_state()
                 category = self.choose_category()
                 score = self.player.calculate_score(category, state['dice_values'])
@@ -57,14 +59,16 @@ class PlayYahtzee:
                     display_dice(state['dice_values'], state['held_dice'])
 
                 elif action == 'h':
-                    indices_str = input("Enter indices (space-separated & between 0-4) to hold: ")
-                    indices = [int(idx) for idx in indices_str.split()]
+                    indices_str = input("Enter indices (space-separated & between 1-5) to hold: ")
+                    indices = [(int(idx)-1) for idx in indices_str.split()]
                     self.current_turn.hold(indices)
                     state = self.current_turn.get_state()
                     display_dice(state['dice_values'], state['held_dice'])
 
                 elif action == 'c':
+                    print("Below is your working hand: ")
                     state = self.current_turn.get_state()
+                    display_dice(state['dice_values'],held_indicies=[0,1,2,3,4])
                     category = self.choose_category()
                     score = self.player.calculate_score(category, state['dice_values'])
                     self.player.mark_score(category, score)
@@ -73,7 +77,6 @@ class PlayYahtzee:
                 else:
                     print("Invalid action. Please enter 'r' to roll, 'h' to hold, or 'c' to choose category.")
                 
-
         self.current_turn = self.player.PlayerTurn()
 
     def play_game(self):
@@ -94,6 +97,8 @@ class PlayYahtzee:
 
     def game_over(self):
         self.generate_block_art()
+        totalScore = sum(list(self.player.score_card.keys()))
+        print(f"Your final score is: {totalScore}" + ", congrats!")
         exit()
 
 if __name__ == '__main__':
