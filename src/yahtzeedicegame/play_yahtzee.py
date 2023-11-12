@@ -2,42 +2,59 @@ from player import Player
 from display_dice import display_dice
 
 class PlayYahtzee:
+    """
+    Represents the main game logic for playing Yahtzee.
+    """
     def __init__(self):
-        self.player = Player()
-        self.start_new_turn()
+        self.player = Player() # Creates an instance of the Player class
+        self.start_new_turn() # Starts a new turn for the player
         self.s = 0
 
     def roll(self):
-        self.current_turn.roll()
-        state = self.current_turn.get_state()
-        self.dice_values = state['dice_values']
-        self.held_value = state['held_dice']
+        """
+        Rolls the dice and handles the game state.
+        """
+        self.current_turn.roll() # Rolls the dice for the current turn
+        state = self.current_turn.get_state() # Retrieves the current state of the game
+        self.dice_values = state['dice_values'] # Obtains the current dice values
+        self.held_value = state['held_dice']  # Obtains the held dice values
 
     def choose_category(self):
+        """
+        Allows the player to choose a scoring category.
+        """
         while True:
-            remaining = self.player.remaining_categories()
-            green_remaining = [f"\033[32m{category}\033[0m" for category in remaining]
-            print("The remaining categories are:", ", ".join(green_remaining))
-            category = input("Choose a scoring category: ")
+            remaining = self.player.remaining_categories() # Retrieves remaining scoring categories
+            green_remaining = [f"\033[32m{category}\033[0m" for category in remaining] # Formats remaining categories
+            print("The remaining categories are:", ", ".join(green_remaining)) ## Displays remaining categories
+            category = input("Choose a scoring category: ")# Asks the player to choose a category
 
             if category in self.player.remaining_categories():
-                return category
+                return category # Returns the chosen category if valid
             else:
-                print("Invalid category. Choose a valid category.")
+                print("Invalid category. Choose a valid category.") # Notifies the player about an invalid choice
     
     def start_new_turn(self):
-        self.current_turn = self.player.PlayerTurn()
+        """
+        Starts a new turn for the player.
+        """
+        self.current_turn = self.player.PlayerTurn()  # Starts a new turn for the player using the PlayerTurn class
 
     def turn(self):
+        """
+        Manages a player's turn in the game.
+        """
         while self.current_turn.rolls_left >= 0:
             if self.current_turn.rolls_left == 3:
-                action = input("Press r to roll: ").lower()
+                action = input("Press r to roll: ").lower()  # Asks for input to roll the dice
+
                 if action == 'r':
-                    self.roll()
-                    state = self.current_turn.get_state()
-                    display_dice(state['dice_values'])
+                    self.roll()  # Rolls the dice if 'r' is pressed
+                    state = self.current_turn.get_state()  # Retrieves the current state
+                    display_dice(state['dice_values'])  # Displays the dice values
                 else:
                     print(f"Invalid action {self.player.name}. Please enter 'r' to roll.")
+                    # Notifies the player about an invalid action
             
             if self.current_turn.rolls_left == 0:
                 print("Below is your working hand: ")
@@ -80,12 +97,17 @@ class PlayYahtzee:
         self.current_turn = self.player.PlayerTurn()
 
     def play_game(self):
-        while not self.player.is_full():
-            self.turn()
-        self.game_over()
+        """
+        Manages the entire game, taking turns until the game is over.
+        """
+        while not self.player.is_full():  # Plays the game until all categories are filled
+            self.turn()  # Manages a player's turn
+        self.game_over()  # Ends the game when all categories are filled
 
     def generate_block_art(self):
-        # ASCII art for game-over screen
+        """
+        Generates ASCII art for the game-over screen.
+        """
         art = """
         Congratulations!
         ________  
@@ -93,15 +115,18 @@ class PlayYahtzee:
          \       \
           \_______\\
         """
-        print(art)
+        print(art)  # Prints the ASCII art for the game-over screen
 
     def game_over(self):
-        self.generate_block_art()
-        totalScore = sum(list(self.player.score_card.keys()))
-        print(f"Your final score is: {totalScore}" + ", congrats!")
-        exit()
+        """
+        Handles the game-over process and displays the final score.
+        """
+        self.generate_block_art()  # Shows the game-over ASCII art
+        totalScore = sum(list(self.player.score_card.keys()))  # Calculates the total score
+        print(f"Your final score is: {totalScore}" + ", congrats!")  # Displays the final score
+        exit()  # Exits the game
 
 if __name__ == '__main__':
     print("Let's Begin")
-    game = PlayYahtzee()
-    game.play_game()
+    game = PlayYahtzee()  # Starts a new game of Yahtzee
+    game.play_game()  # Initiates the game by taking turns until it's over

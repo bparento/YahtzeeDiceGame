@@ -2,7 +2,13 @@
 from collections import Counter
 
 class Scoring:
+    """
+    Class responsible for managing the scoring in a Yahtzee game.
+    """
     def __init__(self):
+        """
+        Initializes the scoring system.
+        """
         self.score_card = {} #A dictionary to store the scores for each category.
         self.all_categories = {
             'Ones': 1, 'Twos': 2, 'Threes': 3, 'Fours': 4, 'Fives': 5, 'Sixes': 6,
@@ -11,6 +17,16 @@ class Scoring:
         }
 
     def calculate_score(self, category, dice_values): #Given a category and dice values, calculates the score for that category.
+        """
+        Given a category and dice values, calculates the score for that category.
+
+        Args:
+        category (str): The category to score.
+        dice_values (List[int]): Values of the dice.
+
+        Returns:
+        int: The calculated score for the given category.
+        """
         count_values = Counter(dice_values)
         sorted_values = sorted(dice_values)
 
@@ -55,27 +71,79 @@ class Scoring:
             return 0
 
     def mark_score(self, category, score): #Records a score for a given category in score_card.
+        """
+        Records a score for a given category in score_card.
+
+        Args:
+        category (str): The category to mark the score.
+        score (int): The score to be recorded for the category.
+        """
         self.score_card[category] = score
 
     def get_score_card(self): # Returns the current score_card.
+        """
+        Returns the current score_card.
+
+        Returns:
+        dict: The current score card with category and scores.
+        """    
         return self.score_card
 
     def is_category_used(self, category): #Checks if a category has already been used.
+        """
+        Checks if a category has already been used.
+
+        Args:
+        category (str): The category to check.
+
+        Returns:
+        bool: True if the category has been used, False otherwise.
+        """
         return category in self.score_card
 
     def remaining_categories(self):
+        """
+        Retrieves the remaining categories to be scored.
+
+        Returns:
+        List[str]: List of categories that haven't been scored yet.
+        """
         return sorted(list(set(self.all_categories.keys()) - (self.score_card.keys())))
 
     def num_remaining_categories(self):
+        """
+        Retrieves the number of remaining categories to be scored.
+
+        Returns:
+        List[str]: List of num_categories that haven't been scored yet.
+        """
         return len(self.remaining_categories())
 
     def num_used_categories(self):
+        """
+        Retrieves the number of used categories to be scored.
+
+        Returns:
+        List[str]: List of number of unused categories that haven't been scored yet.
+        """
         return len(self.score_card)
 
     def is_full(self):
+        """
+        Checks if the scoring is full.
+
+        Returns:
+        True/False: if num_used_categories() == len(self.all_categories)
+        """
         return self.num_used_categories() == len(self.all_categories)
 
     def display_score_card(self):
+        """
+        Displays score
+
+        Returns: 
+        The values of the score card
+        """
         print("Score Card:")
         for category, score in self.score_card.items():
             print(f"{category}: {score}")
