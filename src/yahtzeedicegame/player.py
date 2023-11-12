@@ -5,8 +5,7 @@ from display_dice import display_dice
 
 class Player(Scoring):
     def __init__(self):
-        Scoring.__init__(self)
-        self.player_turn = self.PlayerTurn()
+        super().__init__()  # Initialize the Scoring class
         self.name = input("Please Enter your name: ")
         self.score = 0
 
@@ -15,6 +14,8 @@ class Player(Scoring):
             self.yahtzee_dice = YahzeeDice()
             self.rolls_left = 3
             self.held_dice = []
+            # self.yahtzee_dice.roll_all()
+            # display_dice(self.yahtzee_dice.get_values())
 
         def roll(self):
             for index, dice in enumerate(self.yahtzee_dice.dice_set):
@@ -27,8 +28,8 @@ class Player(Scoring):
 
         def get_state(self):
             return {
-            'dice_values': self.yahtzee_dice.get_values(),
-            'rolls_left': self.rolls_left,
-            'held_dice': self.held_dice
-        }
-    
+                'dice_values': self.yahtzee_dice.get_values(),
+                'rolls_left': self.rolls_left,
+                'held_dice': self.held_dice
+            }
+

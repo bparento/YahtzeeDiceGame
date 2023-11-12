@@ -57,3 +57,11 @@ def display_dice(values: List[int], held_indicies: List[int]=[]):
             die = [f"\033[92m{line}\033[0m" for line in die]
         for line in die:
             print(line)
+    
+# values = [1,1,2,3,4,5];
+# held_values = [1,3];
+# display_dice(values, held_values)
+# from dice import YahzeeDice
+# test = YahzeeDice()
+# test.roll_all()
+# display_dice(test.get_values())

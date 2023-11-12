@@ -21,3 +21,10 @@ class YahzeeDice(Dice):
     def get_values(self):
         return [dice.current_value for dice in self.dice_set]
 
+# Validation
+# test  = YahzeeDice(3)
+# print(test.dice_set)
+# test.roll_all()
+# print(test.dice_set)
+# x = test.get_values()
+# print(x)
