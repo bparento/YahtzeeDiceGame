@@ -67,7 +67,7 @@ class PlayYahtzee:
 
                 elif action == 'c':
                     print("Below is your working hand: ")
-                    state = self.current_turn.get_state()
+        
                     display_dice(state['dice_values'],held_indicies=[0,1,2,3,4])
                     category = self.choose_category()
                     score = self.player.calculate_score(category, state['dice_values'])
